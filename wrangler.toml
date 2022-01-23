@@ -1,0 +1,16 @@
+name = "prometheus-push-gateway"
+
+account_id = "fbbebdb1eed350f2a05f517e1d80915f"
+
+compatibility_date = "2022-01-22"
+
+[durable_objects]
+bindings = [{name = "DO_METRICS", class_name = "MetricsDurableObject"}]
+
+[[migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["MetricsDurableObject"]
+
+# disable triggers if you dont want to push to prometheus remote_write endpoint
+[triggers]
+crons = ["*/1 * * * *"]

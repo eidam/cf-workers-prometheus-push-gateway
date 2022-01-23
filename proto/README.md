@@ -1,0 +1,1 @@
+- `yarn pbjs -t static-module -w es6 -o src/compiled-protobuf.js proto/descriptor.proto proto/gogo.proto proto/remote.proto proto/types.proto`
