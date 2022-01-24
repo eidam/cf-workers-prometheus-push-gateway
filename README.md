@@ -4,6 +4,8 @@ A simple Prometheus _(aggregated)_ push gateway allowing stateless/serverless wo
 
 Powered by [Cloudflare Workers](https://workers.cloudflare.com/), [Durable Objects](https://developers.cloudflare.com/workers/learning/using-durable-objects), and [CRON Triggers](https://developers.cloudflare.com/workers/platform/cron-triggers).
 
+![Prometheus metrics](./.github/img/prometheus-metrics.png)
+
 ## Features
 
 - **Simple PATCH counter** - no need for a client libraries for a counter metric, just send `PATCH /metrics/:metricName?label1=value1&label2=value2` to increment its value.
