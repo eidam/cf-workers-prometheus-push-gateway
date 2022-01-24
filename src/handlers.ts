@@ -6,18 +6,24 @@ import { getDoStub, normalizeMetricName } from './helpers';
 import { PromMetric } from './types';
 
 export async function handleGetMetrics(request, env) {
+    const url = new URL(request.url)
     const stub = await getDoStub(env)
     const res = await stub.fetch(`http://internal/metrics`)
     const metrics = await res.json() as Record<string, PromMetric>
 
+    if (url.searchParams.get("format") === "json" || request.headers.get("accept").includes("application/json")) {
+        return new Response(JSON.stringify(metrics), {
+            headers: {
+                "content-type": "application/json",
+            }
+        })
+    }
     const registry = prom();
     Object.keys(metrics).map(metric => {
         // @ts-ignore
         const m = registry.create(metrics[metric].type, metrics[metric].name, metrics[metric].help)
         metrics[metric].metrics.map(x => m.add(x.value, x.labels))
     })
-
-    console.log("test")
 
     return new Response(registry.metrics())
 }

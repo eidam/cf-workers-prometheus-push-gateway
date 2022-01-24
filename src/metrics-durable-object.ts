@@ -53,8 +53,6 @@ export class MetricsDurableObject {
     const url = new URL(request.url)
     const labels = normalizeLabels(Object.fromEntries(url.searchParams))
 
-    console.log(labels)
-
     // __all is reserved to deleted all metrics
     if (metricName === "__all") {
       this.metrics = new Map()
